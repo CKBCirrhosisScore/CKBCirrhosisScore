@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liver Health Calculator / 肝脏健康评分</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="language-switch">
+        <button onclick="changeLanguage('en')">EN</button>
+        <button onclick="changeLanguage('zh')">中文</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 data-i18n="title">Liver Cirrhosis Risk Calculator</h1>
+            <h2 data-i18n="subtitle">Clinical Prediction Model</h2>
+        </div>
+
+        <form id="health-form">
+            <div class="form-columns">
+                <!-- 左列 - 人口学特征 -->
+                <div class="form-column demographic">
+                    <div class="form-group">
+                        <label data-i18n="age">Age</label>
+                        <input type="number" id="age" min="18" max="120" step="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="bmi">BMI</label>
+                        <input type="number" id="bmi" min="10" max="50" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="gender">Gender</label>
+                        <select id="is_female" required>
+                            <option value="0" data-i18n="male">Male</option>
+                            <option value="1" data-i18n="female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="diabetes">Region</label>
+                        <select id="has_diabetes" required>
+                            <option value="0" data-i18n="no">No</option>
+                            <option value="1" data-i18n="yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 右列 - 检查指标 -->
+                <div class="form-column indicators">
+                    <div class="form-group">
+                        <label data-i18n="ggt">GGT (U/L)</label>
+                        <input type="number" id="ggt" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="ast">AST (U/L)</label>
+                        <input type="number" id="ast" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="tc">Total Cholesterol (mg/dL)</label>
+                        <input type="number" id="tc" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="hdl">HDL (mg/dL)</label>
+                        <input type="number" id="hdl" min="0" step="0.01" required>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-actions">
+                <button type="submit" data-i18n="calculate">Calculate Risk</button>
+                <button type="button" onclick="resetForm()" data-i18n="reset">Reset</button>
+            </div>
+        </form>
+
+        <!-- 结果和免责声明部分保持不变 -->
+        <div class="result-box">
+            <h3 data-i18n="result_title">Your Risk Probability</h3>
+            <div class="result-display">
+                <div id="result" class="result-value">0%</div>
+                <div class="confidence-interval" data-i18n="confidence">95% Confidence Interval: 0.0-0.0</div>
+            </div>
+            <div class="risk-scale">
+                <div class="risk-level low" data-i18n="low_risk">Low</div>
+                <div class="risk-level medium" data-i18n="medium_risk">Medium</div>
+                <div class="risk-level high" data-i18n="high_risk">High</div>
+            </div>
+        </div>
+
+        <div class="disclaimer-box">
+            <h4 data-i18n="disclaimer_title">Disclaimer / 免责声明</h4>
+            <ul>
+                <li data-i18n="disclaimer_1"></li>
+                <li data-i18n="disclaimer_2"></li>
+                <li data-i18n="disclaimer_3"></li>
+                <li data-i18n="disclaimer_4"></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
