@@ -1,4 +1,4 @@
-// 多语言配置
+
 const i18n = {
     en: {
         title: "CKB Cirrhosis Score",
@@ -16,7 +16,7 @@ const i18n = {
         hdl: "HDL (mmol/L)",
         bmi: "BMI",
         calculate: "Calculate Risk",
-        result_title: "Your Risk Probability",
+        result_title: "Your Risk Score",
         low_risk: "Low Risk",
         medium_risk: "Medium Risk",
         high_risk: "High Risk",
@@ -43,7 +43,7 @@ const i18n = {
         hdl: "高密度脂蛋白HDL (mmol/L)",
         bmi: "身体质量指数BMI",
         calculate: "计算风险",
-        result_title: "您的风险概率",
+        result_title: "您的风险评分",
         low_risk: "低风险",
         medium_risk: "中风险",
         high_risk: "高风险",
@@ -56,12 +56,11 @@ const i18n = {
     }
 };
 
-// 语言切换功能
 function changeLanguage(lang) {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (el.tagName === 'LI') {
-            el.innerHTML = i18n[lang][key]; // 允许基础HTML
+            el.innerHTML = i18n[lang][key];
         } else {
             el.textContent = i18n[lang][key];
         }
@@ -73,10 +72,8 @@ function changeLanguage(lang) {
     });
 }
 
-// 初始化为英文
 changeLanguage('en');
 
-// 更新后的计算公式
 function calculateRisk(ggt, age, tc, is_female, ast, has_diabetes, hdl, bmi) {
     const pmax = (x, y) => Math.max(x, y);
     
@@ -100,12 +97,10 @@ function calculateRisk(ggt, age, tc, is_female, ast, has_diabetes, hdl, bmi) {
             0.0059768578 * Math.pow(pmax(bmi - 24.200001, 0), 3) -
             0.0027799345 * Math.pow(pmax(bmi - 28.799999, 0), 3));
 
-    // 应用logistic函数转换
     const probability = 1 / (1 + Math.exp(-score));
     return probability;
 }
 
-// 表单提交处理
 document.getElementById('health-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -123,10 +118,8 @@ document.getElementById('health-form').addEventListener('submit', function(e) {
     const risk = calculateRisk(...Object.values(inputs));
     const riskPercent = (risk * 100).toFixed(1);
     
-    // 更新结果显示
     document.getElementById('result').textContent = `${riskPercent}%`;
-    
-    // 更新风险等级颜色
+
     document.querySelectorAll('.risk-level').forEach(el => el.style.opacity = 0.3);
     if (risk < 0.02) {
         document.querySelector('.low').style.opacity = 1;
